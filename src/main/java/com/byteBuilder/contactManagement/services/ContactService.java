@@ -37,7 +37,29 @@ public List<Contact> getAllContacts() {
     return contactRepo.findAll();
 }
 
-//public CreateResponse updateContact(UpdateRequest updateRequest) {
-//    Optional<Contact> foundContact =
-//}
+public CreateResponse updateContactPhoneNumber(CreateRequest createRequest) {
+    Optional<Contact> foundContact = contactRepo.findByFirstName(createRequest.getFirstName());
+    if (foundContact.isPresent()){
+        Contact contact = foundContact.get();
+        contact.setPhoneNumber(createRequest.getPhoneNumber());
+        contactRepo.save(contact);
+        CreateResponse response = ContactMapper.mapCreateResponse(contact);
+        response.setMessage("contact successfully updated");
+        return response;
+    }
+    else {
+        throw new RuntimeException("Contact not found");
+    }
+}
+
+public CreateResponse getContactByPhoneNumber(String phoneNumber) {
+    Optional<Contact> foundContact = contactRepo.findByPhoneNumber(phoneNumber);
+    if (foundContact.isPresent()){
+        Contact contact = foundContact.get();
+        return ContactMapper.mapCreateResponse(contact);
+    }
+    else {
+        throw new RuntimeException("Contact not found");
+    }
+}
 }
