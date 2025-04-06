@@ -6,7 +6,6 @@ import com.byteBuilder.contactManagement.dtos.CreateRequest;
 import com.byteBuilder.contactManagement.dtos.CreateResponse;
 import com.byteBuilder.contactManagement.dtos.UpdateContactRequest;
 import com.byteBuilder.contactManagement.utils.ContactMapper;
-import com.mongodb.internal.bulk.UpdateRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -57,11 +56,10 @@ public CreateResponse updateContactPhoneNumber(UpdateContactRequest updateContac
 }
 
 @Override
-public CreateResponse getContactByPhoneNumber(String phoneNumber) {
+public Contact getContactByPhoneNumber(String phoneNumber) {
     Optional<Contact> foundContact = contactRepo.findByPhoneNumber(phoneNumber);
     if (foundContact.isPresent()){
-        Contact contact = foundContact.get();
-        return ContactMapper.mapCreateResponse(contact);
+        return foundContact.get();
     }
     else {
         throw new RuntimeException("Contact not found");

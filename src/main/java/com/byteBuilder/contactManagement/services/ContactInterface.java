@@ -11,5 +11,5 @@ public interface ContactInterface {
     CreateResponse createContact(CreateRequest createRequest);
     List<Contact> getAllContacts();
     CreateResponse updateContactPhoneNumber(UpdateContactRequest updateContactRequest);
-    CreateResponse getContactByPhoneNumber(String phoneNumber);
+    Contact getContactByPhoneNumber(String phoneNumber);
 }
