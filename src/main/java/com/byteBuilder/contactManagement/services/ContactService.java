@@ -59,6 +59,7 @@ public CreateResponse updateContactPhoneNumber(UpdateContactRequest updateContac
 public Contact getContactByPhoneNumber(String phoneNumber) {
     Optional<Contact> foundContact = contactRepo.findByPhoneNumber(phoneNumber);
     if (foundContact.isPresent()){
+        System.out.println(foundContact.get().getPhoneNumber());
         return foundContact.get();
     }
     else {
